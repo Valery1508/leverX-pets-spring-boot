@@ -24,12 +24,17 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
         List<FieldError> fieldErrors = ex.getFieldErrors();
         Map<String, String> errors = new HashMap<>();
+
         for (FieldError fieldError : fieldErrors) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
+
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
