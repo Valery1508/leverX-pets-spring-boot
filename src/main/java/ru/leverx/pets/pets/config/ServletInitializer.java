@@ -1,7 +1,8 @@
-package ru.leverx.pets.pets;
+package ru.leverx.pets.pets.config;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import ru.leverx.pets.pets.PetsApplication;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 

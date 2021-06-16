@@ -1,7 +1,5 @@
 package ru.leverx.pets.pets.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,9 +19,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pet", schema = "public")
 @NoArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Pet {
 
     @Id
