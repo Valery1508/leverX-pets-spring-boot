@@ -25,12 +25,12 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonResponseDto> getPersonById(@PathVariable Long id){
+    public ResponseEntity<PersonResponseDto> getPersonById(@PathVariable Long id) {
         return ResponseEntity.ok(personService.getPersonById(id));
     }
 
     @GetMapping
-    public List<PersonResponseDto> getPeople(){
+    public List<PersonResponseDto> getPeople() {
         return personService.getPeople();
     }
 
@@ -40,15 +40,14 @@ public class PersonController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deletePersonById(@PathVariable Long id){  //TODO - remove String
+    public ResponseEntity<String> deletePersonById(@PathVariable Long id) {  //TODO - remove String
         personService.deletePersonById(id);
         return ResponseEntity.ok("Person with id=" + id + " was successfully deleted");
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<PersonResponseDto> updatePersonById(@PathVariable Long id,
-                                                              @Valid @RequestBody PersonRequestDto personRequestDto){
+                                                              @Valid @RequestBody PersonRequestDto personRequestDto) {
         return ResponseEntity.ok(personService.updatePerson(id, personRequestDto));
     }
-
 }
