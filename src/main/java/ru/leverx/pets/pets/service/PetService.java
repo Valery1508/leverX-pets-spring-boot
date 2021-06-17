@@ -1,6 +1,5 @@
 package ru.leverx.pets.pets.service;
 
-
 import ru.leverx.pets.pets.dto.PetDto;
 
 import java.util.List;
@@ -15,5 +14,7 @@ public interface PetService {
     PetDto updatePet(long id, PetDto petDto);
 
     PetDto createPet(PetDto petDto);
+
+    boolean checkPetExistence(long id);
 
 }

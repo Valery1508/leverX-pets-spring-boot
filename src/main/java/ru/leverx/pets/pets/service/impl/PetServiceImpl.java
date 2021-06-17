@@ -77,7 +77,8 @@ public class PetServiceImpl implements PetService {
         return petMapper.toDto(savedPet);
     }
 
-    private boolean checkPetExistence(long id) {
+    @Override
+    public boolean checkPetExistence(long id) {
         return petRepository.existsById(id);
     }
 

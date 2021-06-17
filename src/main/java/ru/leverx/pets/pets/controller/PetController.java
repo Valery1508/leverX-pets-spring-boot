@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.leverx.pets.pets.dto.PetDto;
+import ru.leverx.pets.pets.dto.SwapPetsDto;
 import ru.leverx.pets.pets.service.PetService;
+import ru.leverx.pets.pets.service.SwapPetsService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 public class PetController {
 
     private final PetService petService;
+    private final SwapPetsService swapPetsService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<PetDto> getPetById(@PathVariable Long id) {
@@ -48,5 +51,11 @@ public class PetController {
     public ResponseEntity<PetDto> updatePetById(@PathVariable Long id,
                                                 @Valid @RequestBody PetDto petDto) {
         return ResponseEntity.ok(petService.updatePet(id, petDto));
+    }
+
+    @PostMapping(value = "/swap")
+    public ResponseEntity<String> swapPets(@Valid @RequestBody SwapPetsDto swapPetsDto) {
+        swapPetsService.swapPets(swapPetsDto);
+        return ResponseEntity.ok("Pets were successfully swapped :)");
     }
 }

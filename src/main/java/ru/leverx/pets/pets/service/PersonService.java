@@ -1,6 +1,5 @@
 package ru.leverx.pets.pets.service;
 
-
 import ru.leverx.pets.pets.dto.PersonRequestDto;
 import ru.leverx.pets.pets.dto.PersonResponseDto;
 

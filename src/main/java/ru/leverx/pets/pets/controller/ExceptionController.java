@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.leverx.pets.pets.exception.EntityNotFoundException;
+import ru.leverx.pets.pets.exception.OwnershipException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class ExceptionController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> entityNFE(EntityNotFoundException e) {
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
@@ -36,5 +37,10 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         }
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OwnershipException.class)
+    public ResponseEntity<String> handleOwnershipException(OwnershipException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

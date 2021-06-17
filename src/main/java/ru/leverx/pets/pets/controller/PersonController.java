@@ -40,7 +40,7 @@ public class PersonController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deletePersonById(@PathVariable Long id) {  //TODO - remove String
+    public ResponseEntity<String> deletePersonById(@PathVariable Long id) {
         personService.deletePersonById(id);
         return ResponseEntity.ok("Person with id=" + id + " was successfully deleted");
     }
