@@ -6,7 +6,7 @@
 4) Validation API
 
 # Database info:
-- postgresql
+- postgresql, h2
 - one pet has one owner
 - one owner may have many pets
 - schema:
@@ -14,3 +14,8 @@
 
 # Postman link for testing:
 https://www.getpostman.com/collections/905c0d4b291715293135
+
+# Two profiles:
+1) dev - postgres
+2) prod - h2 database
+To change profile, go to application.properties file and change field "spring.profiles.active".
