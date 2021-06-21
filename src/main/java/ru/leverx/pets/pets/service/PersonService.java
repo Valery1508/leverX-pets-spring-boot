@@ -6,6 +6,7 @@ import ru.leverx.pets.pets.dto.PersonResponseDto;
 import java.util.List;
 
 public interface PersonService {
+
     PersonResponseDto getPersonById(long id);
 
     List<PersonResponseDto> getPeople();

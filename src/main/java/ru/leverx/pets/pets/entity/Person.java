@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.FetchType.EAGER;
+import static java.util.Collections.emptyList;
+import static javax.persistence.FetchType.LAZY;
 
 @Data
 @Entity
@@ -35,7 +36,7 @@ public class Person {
     private String lastName;
 
     @OneToMany(mappedBy = "person",
-            fetch = EAGER, orphanRemoval = true)
+            fetch = LAZY, cascade = CascadeType.REMOVE)
     @ToString.Exclude
-    private List<Pet> pets = new ArrayList<>();
+    private List<Pet> pets = emptyList();
 }

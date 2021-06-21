@@ -6,6 +6,7 @@ import ru.leverx.pets.pets.dto.PetDto;
 import ru.leverx.pets.pets.entity.Person;
 import ru.leverx.pets.pets.entity.Pet;
 import ru.leverx.pets.pets.exception.EntityNotFoundException;
+import ru.leverx.pets.pets.exception.OwnershipException;
 import ru.leverx.pets.pets.mapper.PetMapper;
 import ru.leverx.pets.pets.repository.PetRepository;
 import ru.leverx.pets.pets.service.PersonService;
@@ -13,6 +14,7 @@ import ru.leverx.pets.pets.service.PetService;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -80,6 +82,19 @@ public class PetServiceImpl implements PetService {
     @Override
     public boolean checkPetExistence(long id) {
         return petRepository.existsById(id);
+    }
+
+    @Override
+    public void updatePersonId(long personId, long petId) {
+        petRepository.updatePersonId(personId, petId);
+    }
+
+    @Override
+    public void checkOwnership(Long personId, Long petId) {
+        Optional<Person> person = petRepository.findPersonByPetId(petId);
+        if (!personId.equals(person.get().getId())) {
+            throw new OwnershipException(personId, petId);
+        }
     }
 
     private List<PetDto> toDtos(List<Pet> pets) {

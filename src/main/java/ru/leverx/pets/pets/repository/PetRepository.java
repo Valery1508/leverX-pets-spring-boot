@@ -8,11 +8,12 @@ import ru.leverx.pets.pets.entity.Person;
 import ru.leverx.pets.pets.entity.Pet;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
     @Query(value = "SELECT p.person FROM Pet p where p.id = :petId")
-    Person findPersonByPetId(@Param("petId") Long petId);
+    Optional<Person> findPersonByPetId(@Param("petId") Long petId);
 
     @Transactional
     @Modifying

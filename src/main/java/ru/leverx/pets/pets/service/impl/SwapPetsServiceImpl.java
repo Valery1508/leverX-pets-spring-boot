@@ -3,9 +3,7 @@ package ru.leverx.pets.pets.service.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.leverx.pets.pets.dto.SwapPetsDto;
-import ru.leverx.pets.pets.entity.Person;
-import ru.leverx.pets.pets.exception.OwnershipException;
-import ru.leverx.pets.pets.repository.PetRepository;
+import ru.leverx.pets.pets.exception.SimilarPeopleException;
 import ru.leverx.pets.pets.service.PersonService;
 import ru.leverx.pets.pets.service.PetService;
 import ru.leverx.pets.pets.service.SwapPetsService;
@@ -17,41 +15,37 @@ import javax.transaction.Transactional;
 @AllArgsConstructor
 public class SwapPetsServiceImpl implements SwapPetsService {
 
-    private final PetRepository petRepository;
-
     private final PersonService personService;
     private final PetService petService;
 
     @Override
     public void swapPets(SwapPetsDto swapPetsDto) {
+
         long firstPersonId = swapPetsDto.getFirstPersonId();
         long firstPetId = swapPetsDto.getFirstPetId();
+        long secondPersonId = swapPetsDto.getSecondPersonId();
+        long secondPetId = swapPetsDto.getSecondPetId();
 
-        if (checkExistenceAndOwnership(firstPersonId, firstPetId)) {
-            long secondPersonId = swapPetsDto.getSecondPersonId();
-            long secondPetId = swapPetsDto.getSecondPetId();
+        checkPersonAndPetExistence(firstPersonId, firstPetId);
+        checkPersonAndPetExistence(secondPersonId, secondPetId);
 
-            if (checkExistenceAndOwnership(secondPersonId, secondPetId)) {
+        checkSimilarPersonId(firstPersonId, secondPersonId);
 
-                petRepository.updatePersonId(firstPersonId, secondPetId);
-                petRepository.updatePersonId(secondPersonId, firstPetId);
+        petService.checkOwnership(firstPersonId, firstPetId);
+        petService.checkOwnership(secondPersonId, secondPetId);
 
-            } else {
-                throw new OwnershipException(secondPersonId, secondPetId);
-            }
-        } else {
-            throw new OwnershipException(firstPersonId, firstPetId);
+        petService.updatePersonId(firstPersonId, secondPetId);
+        petService.updatePersonId(secondPersonId, firstPetId);
+    }
+
+    private void checkPersonAndPetExistence(Long personId, Long petId) {
+        personService.checkPersonExistence(personId);
+        petService.checkPetExistence(petId);
+    }
+
+    private void checkSimilarPersonId(Long firstPersonId, Long secondPersonId) {
+        if (firstPersonId.equals(secondPersonId)) {
+            throw new SimilarPeopleException(firstPersonId);
         }
-    }
-
-    private boolean checkExistenceAndOwnership(Long personId, Long petId) {
-        return personService.checkPersonExistence(personId)
-                && petService.checkPetExistence(petId)
-                && checkOwnerShip(personId, petId);
-    }
-
-    private boolean checkOwnerShip(Long personId, Long petId) {
-        Person person = petRepository.findPersonByPetId(petId);
-        return personId.equals(person.getId());
     }
 }

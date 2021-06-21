@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.leverx.pets.pets.exception.EntityNotFoundException;
 import ru.leverx.pets.pets.exception.OwnershipException;
+import ru.leverx.pets.pets.exception.SimilarPeopleException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,11 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(OwnershipException.class)
     public ResponseEntity<String> handleOwnershipException(OwnershipException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SimilarPeopleException.class)
+    public ResponseEntity<String> handleSimilarPeopleException(SimilarPeopleException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -5,6 +5,7 @@ import ru.leverx.pets.pets.dto.PetDto;
 import java.util.List;
 
 public interface PetService {
+
     PetDto getPetById(long id);
 
     List<PetDto> getPets();
@@ -17,4 +18,7 @@ public interface PetService {
 
     boolean checkPetExistence(long id);
 
+    void updatePersonId(long personId, long petId);
+
+    void checkOwnership(Long personId, Long petId);
 }
