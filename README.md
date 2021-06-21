@@ -19,4 +19,4 @@ https://www.getpostman.com/collections/905c0d4b291715293135
 1) dev - postgres
 2) prod - h2 database
 
-To change profile, go to [application.properties](src/main/resources/application.properties) file and change field "spring.profiles.active".
+To change profile run "mvn -Pprod clean spring-boot:run". In this case we run aplication with prod profile.
