@@ -1,0 +1,7 @@
+applications:
+  - name: pets-service
+    instances: 1
+    memory: 1G
+    disk_quota: 1G
+    path: target/Pets-0.0.1-SNAPSHOT.war
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v4.17.1
