@@ -20,3 +20,8 @@ https://www.getpostman.com/collections/905c0d4b291715293135
 2) prod - h2 database
 
 To change profile run "mvn -Pprod clean spring-boot:run". In this case we run aplication with prod profile.
+
+# Deploy on SAP Cloud Foundry
+1. run "mvn -Pprod package" to build war.
+2. go to the root of project in command line.
+3. run "cf push".
