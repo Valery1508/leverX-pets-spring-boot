@@ -1,6 +1,7 @@
 package ru.leverx.pets.pets.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.leverx.pets.pets.dto.PetDto;
 import ru.leverx.pets.pets.entity.Person;
@@ -21,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class PetServiceImpl implements PetService {
 
     private final PetRepository petRepository;
@@ -34,6 +36,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetDto getPetById(long id) {
+        log.debug("getPetById method started.");
         return petRepository.findById(id)
                 .map(petMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(Pet.class.getName(), id));
@@ -49,6 +52,7 @@ public class PetServiceImpl implements PetService {
 
         Pet pet = petMapper.toEntity(petDto);
         Pet savedPet = petRepository.save(pet);
+        log.debug("Pet with id={} was successfully saved!", savedPet.getId());
         return getPetById(savedPet.getId());
     }
 
@@ -56,6 +60,7 @@ public class PetServiceImpl implements PetService {
     public void deletePetById(long id) {
         if (checkPetExistence(id)) {
             petRepository.deleteById(id);
+            log.debug("Pet with id={} was successfully deleted!", id);
         } else {
             throw new EntityNotFoundException(Pet.class.getName(), id);
         }
@@ -76,6 +81,7 @@ public class PetServiceImpl implements PetService {
         Pet pet = petMapper.toEntity(petDto);
 
         Pet savedPet = petRepository.save(pet);
+        log.debug("Pet with id={} was successfully saved!", savedPet.getId());
         return petMapper.toDto(savedPet);
     }
 
@@ -86,6 +92,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public void updatePersonId(long personId, long petId) {
+        log.debug("personId({}) for Pet with id={} was successfully updated!", personId, petId);
         petRepository.updatePersonId(personId, petId);
     }
 

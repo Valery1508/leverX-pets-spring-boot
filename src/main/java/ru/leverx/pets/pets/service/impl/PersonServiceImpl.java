@@ -1,6 +1,7 @@
 package ru.leverx.pets.pets.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.leverx.pets.pets.dto.PersonRequestDto;
 import ru.leverx.pets.pets.dto.PersonResponseDto;
@@ -18,6 +19,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
@@ -25,6 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDto getPersonById(long id) {
+        log.debug("getPersonById method started.");
         return personRepository.findById(id)
                 .map(personMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(Person.class.getName(), id));
@@ -39,6 +42,8 @@ public class PersonServiceImpl implements PersonService {
     public PersonResponseDto createPerson(PersonRequestDto personRequestDto) {
         Person person = personMapper.toEntity(personRequestDto);
         Person savedPerson = personRepository.save(person);
+
+        log.debug("Person with id={} was successfully saved!", savedPerson.getId());
         return getPersonById(savedPerson.getId());
     }
 
@@ -46,6 +51,7 @@ public class PersonServiceImpl implements PersonService {
     public void deletePersonById(long id) {
         if (checkPersonExistence(id)) {
             personRepository.deleteById(id);
+            log.debug("Person with id={} was successfully deleted!", id);
         } else {
             throw new EntityNotFoundException(Person.class.getName(), id);
         }
@@ -61,6 +67,7 @@ public class PersonServiceImpl implements PersonService {
         Person person = personMapper.toEntity(personRequestDto);
 
         Person savedPerson = personRepository.save(person);
+        log.debug("Person with id={} was successfully saved!", savedPerson.getId());
         return personMapper.toDto(savedPerson);
     }
 

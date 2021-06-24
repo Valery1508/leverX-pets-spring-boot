@@ -23,6 +23,8 @@
         <h2>1.4.200</h2>
 
         <apache.commons>3.12.0</apache.commons>
+
+        <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
     <dependencies>
@@ -75,6 +77,14 @@
             <artifactId>commons-lang3</artifactId>
             <version>${apache.commons}</version>
         </dependency>
+
+        <!-- logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
