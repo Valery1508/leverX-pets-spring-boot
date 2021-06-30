@@ -13,7 +13,7 @@
     <groupId>ru.leverx.pets</groupId>
     <artifactId>Pets</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Pets</name>
     <description>Demo project for Spring Boot</description>
 
@@ -85,6 +85,8 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+
+
     </dependencies>
 
     <profiles>
@@ -104,6 +106,28 @@
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                     <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!--cloud profile-->
+        <profile>
+            <id>cloud</id>
+            <properties>
+                <env>cloud</env>
+                <activeProfile>cloud</activeProfile>
+            </properties>
+            <dependencies>
+                <!--DATABASE-->
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sap.hcp.cf.logging</groupId>
+                    <artifactId>cf-java-logging-support-logback</artifactId>
+                    <version>3.4.0</version>
                 </dependency>
             </dependencies>
         </profile>
