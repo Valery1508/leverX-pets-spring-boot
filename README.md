@@ -66,3 +66,26 @@ In this case we run application with **prod** profile.
    - <cloud_foundry_db_username> is username of db on cloud foundry;
    - <port> is your selected port from 1.2 point.
    For instance, **psql -d dKrgScklCbkM -U f5cef68d7730 -p 8081**
+
+# Debug cloud application from IntelliJ IDEA:
+
+**Useful link** - https://blogs.sap.com/2019/07/24/remote-debugging-on-cloud-foundry/
+
+1. 
+   ```
+   cf allow-space-ssh dev
+   ```
+2. ```
+   cf enable-ssh <application_cloud_name>
+   ```
+   In our case: **cf enable-ssh pets-service**
+3. ```
+   cf restage <application_cloud_name>
+   ```
+   In our case: **cf restage pets-service**
+4. ```
+   cf ssh -N -T -L 5041:localhost:8000 <application_cloud_name>
+   ```
+   In our case: **cf ssh -N -T -L 5041:localhost:8000 pets-service**
+5. Customize debug mode (please, follow **Useful link**)
+6. Make breakpoints and debug :)
