@@ -1,4 +1,4 @@
-# LeverX Pets Service
+# LeverX Pets Service App
 
 # Task description:
 1) Spring Boot
