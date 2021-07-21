@@ -8,5 +8,6 @@ applications:
     services:
       - postgres
       - my-logger
+      - pets-xsuaa
     env:
       JBP_CONFIG_DEBUG: '{enabled: true}'
